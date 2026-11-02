@@ -1,0 +1,11 @@
+html,body{
+ display: grid;
+ height: 100%;
+ place-items: center;
+}
+
+form{
+  padding: 20px 20px;
+  border: 2px solid whitesmoke;
+  box-shadow: 2px 2px 5px 5px gainsboro;
+}

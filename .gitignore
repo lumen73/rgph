@@ -1,0 +1,43 @@
+# Paramètres et secrets locaux
+.env
+.env.*
+!.env.example
+/config.local.php
+/connexion.local.php
+/config/*.local.php
+*.pem
+*.key
+
+# Exports et bases de données locales (conserver les schémas SQL versionnés)
+/database/dumps/
+/database/local/
+*.dump
+*.dump.sql
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.db
+
+# Journaux, fichiers temporaires et caches générés
+/logs/
+/tmp/
+/cache/
+*.log
+/.phpunit.cache/
+/coverage/
+
+# Dépendances et sorties de build, si elles sont ajoutées plus tard
+/vendor/
+/node_modules/
+/build/
+/dist/
+
+# Fichiers propres au système et aux éditeurs
+.DS_Store
+Thumbs.db
+desktop.ini
+/.vscode/
+/.idea/
+*.swp
+*.swo
+*~
