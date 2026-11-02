@@ -1,0 +1,46 @@
+# ---------------------------------------------------------------------------
+# RGPH5 — Configuration Apache
+#
+# NOTE : adaptez "RewriteBase" si vous déplacez le projet vers un autre
+# dossier (il doit correspondre à l'URL du dossier, avec les slashs).
+# ---------------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /td7/td7/
+
+    # Ne réécrit que les requêtes qui ne correspondent à aucun fichier/dossier
+    # réel (permet les URLs propres sans casser les assets).
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# En-têtes de sécurité : pris en charge par index.php (mod_headers est
+# désactivé sur ce WAMP). Si le module est activé un jour, ce bloc devient
+# actif et centralisera aussi les en-têtes des fichiers statiques.
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Protection des dossiers sensibles (défense en profondeur).
+# ---------------------------------------------------------------------------
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(sql|log|md)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+    <FilesMatch "\.(sql|log|md)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>

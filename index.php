@@ -1,38 +1,35 @@
-<?php  require "connexion.php";
+<?php
+/**
+ * Front controller : point d'entrée unique de l'application.
+ */
 
-if(isset($_POST['seconnecter'])){
- $email=$_POST['email']; $mdp=addslashes($_POST['mdp']);
- $con=$db->query("SELECT * FROM utilisateur WHERE email='$email' AND mdp='$mdp' ");
-  if($sucess=$con->fetch() )
-  { 
-   $_SESSION['email']=$email; $_SESSION['mdp']=$mdp;
-    header('Location:ajoutpopulation.php');
-  }else{$sms='<div class="alert alert-danger">IDENTIFIANTS INCORRECTS</div>';}
+declare(strict_types=1);
+
+require __DIR__ . '/bootstrap.php';
+
+use App\Core\Request;
+use App\Core\Router;
+use App\Core\Session;
+
+$request = Request::capture();
+Request::setCurrent($request);
+
+// En-têtes de sécurité applicatifs (mod_headers est désactivé sur ce WAMP :
+// ils sont ici envoyés pour chaque réponse dynamique de l'application).
+if (!headers_sent()) {
+    header('X-Frame-Options: SAMEORIGIN');
+    header('X-Content-Type-Options: nosniff');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        header('Strict-Transport-Security: max-age=31536000');
+    }
 }
 
-?> 
+$router = new Router();
+require APP_PATH . '/routes.php';
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-</head>
-<body>
-    <div class="container" style="display: grid; place-items:center; border:2px solid white;box-shadow:2px 2x 5px 5px gray; padding:15px">
-    <form action="" method="POST">
-        <?php if(isset($sms)){echo $sms;} ?>
-        <fieldset>
-            <center><legend><h1>RGPH5</h1><h4>5e Recensement général de la population et de l'habitat</h4></legend></center>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Saisissez l'email"><br>
-            <label for="mdp">Mot de passe</label>
-            <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Saisissez le mot de passe"><br>
-            <button type="submit" name="seconnecter" class="btn btn-success">Se connecter</button>
-        </fieldset>
-    </form>
-    </div>
-</body>
-</html>
+try {
+    $router->dispatch($request);
+} finally {
+    Session::clearOldInput();
+}

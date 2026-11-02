@@ -1,0 +1,20 @@
+Images de la page de connexion RGPH5
+===================================
+
+statue-amazone.jpg
+    « Le monument de l'Amazone » — Cotonou (Bénin), 5 mars 2025
+    Auteur : Mister Kolson — CC0 (domaine public, dedication)
+    Source : https://commons.wikimedia.org/wiki/File:Le_monument_de_l%27Amazone.jpg
+
+esplanade-amazones.jpg
+    « Place de l'amazone aménagée pour la fête de l'indépendance au Bénin en 2023 »
+    Auteur : Adoscam — CC BY-SA 4.0
+    Source : https://commons.wikimedia.org/wiki/File:Place_de_l%27amazone_am%C3%A9nag%C3%A9e_pour_la_f%C3%AAte_de_l%27ind%C3%A9pendance_au_B%C3%A9nin_en_2023_02.jpg
+
+esplanade-place.jpg (non utilisé sur la page de connexion, conservé pour référence)
+    « Esplanade des Amazones, ville de Cotonou, département du Littoral au sud du Bénin »
+    Auteur : Saliousoft — CC BY-SA 4.0
+    Source : https://commons.wikimedia.org/wiki/File:Esplanade_des_Amazones,_ville_de_Cotonou,_d%C3%A9partement_du_Littoral_au_sud_du_B%C3%A9nin_01.jpg
+
+Le drapeau du Bénin est un tracé vectoriel original (app/Views/partials/drapeau-benin.php) :
+vert #008850, jaune #FCD20F, rouge #E90929.
